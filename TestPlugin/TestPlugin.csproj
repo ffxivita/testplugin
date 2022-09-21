@@ -1,0 +1,97 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <Version>1.0.0.2</Version>
+        <PackageProjectUrl>https://github.com/ffxivita/testplugin</PackageProjectUrl>
+        <RootNamespace>TestPlugin</RootNamespace>
+        <AssemblyName>TestPlugin</AssemblyName>
+    </PropertyGroup>
+
+
+    <PropertyGroup>
+        <TargetFramework>net6.0-windows</TargetFramework>
+        <Platforms>x64</Platforms>
+        <PlatformTarget>x64</PlatformTarget>
+        <LangVersion>latest</LangVersion>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <ProduceReferenceAssembly>false</ProduceReferenceAssembly>
+        <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+        <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+        <ProduceReferenceAssembly>false</ProduceReferenceAssembly>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <None Update="TestPlugin.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
+
+    <PropertyGroup>
+        <DalamudLibPath>$(appdata)\XIVLauncher\addon\Hooks\dev\</DalamudLibPath>
+        <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Linux)))'">
+        <DalamudLibPath>$(DALAMUD_HOME)/</DalamudLibPath>
+        <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(IsCI)' == 'true'">
+        <DalamudLibPath>Dalamud</DalamudLibPath>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Reference Include="FFXIVClientStructs">
+            <HintPath>$(DalamudLibPath)FFXIVClientStructs.dll</HintPath>
+            <Private>false</Private>
+        </Reference>
+        <Reference Include="Newtonsoft.Json">
+            <HintPath>$(DalamudLibPath)Newtonsoft.Json.dll</HintPath>
+            <Private>false</Private>
+        </Reference>
+        <Reference Include="Dalamud">
+            <HintPath>$(DalamudLibPath)Dalamud.dll</HintPath>
+            <Private>false</Private>
+        </Reference>
+        <Reference Include="ImGui.NET">
+            <HintPath>$(DalamudLibPath)ImGui.NET.dll</HintPath>
+            <Private>false</Private>
+        </Reference>
+        <Reference Include="ImGuiScene">
+            <HintPath>$(DalamudLibPath)ImGuiScene.dll</HintPath>
+            <Private>false</Private>
+        </Reference>
+        <Reference Include="Lumina">
+            <HintPath>$(DalamudLibPath)Lumina.dll</HintPath>
+            <Private>false</Private>
+        </Reference>
+        <Reference Include="Lumina.Excel">
+            <HintPath>$(DalamudLibPath)Lumina.Excel.dll</HintPath>
+            <Private>false</Private>
+        </Reference>
+        <Reference Include="CheapLoc">
+            <Private>false</Private>
+            <HintPath>$(DalamudLibPath)CheapLoc.dll</HintPath>
+        </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="DalamudPackager" Version="2.1.8" />
+    </ItemGroup>
+
+    <ProjectExtensions>
+        <DalamudPlugin>
+            <ApiLevel>7</ApiLevel>
+            <Author>FFXIVITA</Author>
+            <Name>Test Plugin</Name>
+            <Punchline>Un plugin di esempio</Punchline>
+            <Description>Non è stato pensato per essere il più semplice possibile ma riesce a coprire quasi tutte le interazioni</Description>
+            <IconUrl></IconUrl>
+            <Tags>
+                <Tag>XIVITA</Tag>
+            </Tags>
+            <Hidden>False</Hidden>
+        </DalamudPlugin>
+    </ProjectExtensions>
+</Project>
